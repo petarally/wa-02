@@ -2,6 +2,8 @@ const express = require("express");
 
 const app = express();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/" + "index.html");
 });
@@ -30,14 +32,14 @@ app.get("/pizze/:id", (req, res) => {
 });
 
 // Metoda za naručivanje pizze
-app.post("/naruci/", (req, res) => {
+app.post("/naruci", (req, res) => {
   let body_pizza = req.body;
-  res.send(
-    "Narucili ste pizzu: " +
-      body_pizza.naziv +
-      " sa cijenom: " +
-      body_pizza.cijena
-  );
+  console.log(body_pizza);
+  keys = ["pizza", "velicina", "kolicina"];
+  for (let pizza in body_pizza) {
+    console.log(pizza);
+  }
+  return res.json("Narucili ste pizze");
 });
 
 app.listen(3000, () => {
