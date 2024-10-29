@@ -6,12 +6,14 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/" + "index.html");
 });
 
-app.get("/users", (req, res) => {
-  res.json([
-    { id: 1, ime: "Petar", prezime: "Petrovic" },
-    { id: 2, ime: "Marko", prezime: "Markovic" },
-    { id: 3, ime: "Ivan", prezime: "Ivanovic" },
-  ]);
+const pizze = [
+  { naziv: "Margherita", cijena: 10 },
+  { naziv: "Diavola", cijena: 12 },
+  { naziv: "Capricciosa", cijena: 15 },
+];
+
+app.get("/pizze", (req, res) => {
+  res.json(pizze);
 });
 
 app.listen(3000, () => {
