@@ -7,13 +7,37 @@ app.get("/", (req, res) => {
 });
 
 const pizze = [
-  { naziv: "Margherita", cijena: 10 },
-  { naziv: "Diavola", cijena: 12 },
-  { naziv: "Capricciosa", cijena: 15 },
+  { id: 1, naziv: "Margherita", cijena: 10 },
+  { id: 2, naziv: "Diavola", cijena: 12 },
+  { id: 3, naziv: "Capricciosa", cijena: 15 },
 ];
 
 app.get("/pizze", (req, res) => {
-  res.json(pizze);
+  res.json(pizze[id]);
+});
+
+app.get("/pizze/:id", (req, res) => {
+  let id_pizza = req.params.id;
+  if (isNaN(id_pizza)) {
+    res.send("Id mora biti broj");
+  }
+  if (id_pizza > pizze.length) {
+    res.send("Nepostojeca pizza");
+  }
+  let pizza = pizze.find((p) => p.id == id_pizza);
+  res.json(pizza);
+  // res.json(pizze[id_pizza - 1]);
+});
+
+// Metoda za naručivanje pizze
+app.post("/naruci/", (req, res) => {
+  let body_pizza = req.body;
+  res.send(
+    "Narucili ste pizzu: " +
+      body_pizza.naziv +
+      " sa cijenom: " +
+      body_pizza.cijena
+  );
 });
 
 app.listen(3000, () => {
