@@ -9,7 +9,7 @@ const pizze = [
 ];
 
 router.get("/", (req, res) => {
-  res.json(pizze[id]);
+  res.status(200).json(pizze[id]);
 });
 
 router.get("/:id", (req, res) => {
@@ -18,10 +18,10 @@ router.get("/:id", (req, res) => {
     res.send("Id mora biti broj");
   }
   if (id_pizza > pizze.length) {
-    res.send("Nepostojeca pizza");
+    res.status(404).send("Nepostojeca pizza");
   }
   let pizza = pizze.find((p) => p.id == id_pizza);
-  res.json(pizza);
+  res.status(200).json(pizza);
   // res.json(pizze[id_pizza - 1]);
 });
 
